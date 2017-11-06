@@ -30,3 +30,8 @@ gradlew
 build/*
 eclipse/
 run/
+.settings/*
+.classpath
+.project
+bin/
+*.launch
