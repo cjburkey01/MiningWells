@@ -5,11 +5,11 @@
   "description": "A simple alternative/update of Buildcraft's amazing mining wells.",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "-- TODO --",
-  "updateUrl": "",
+  "url": "https://minecraft.curseforge.com/projects/burkeys-mining-wells",
+  "updateUrl": "https://minecraft.curseforge.com/projects/burkeys-mining-wells/files",
   "authorList": ["CJ Burkey"],
   "credits": "The Forge and FML guys, for making Forge and FML, respectively.",
-  "logoFile": "logo.png",
+  "logoFile": "logo256.png",
   "screenshots": [],
   "dependencies": []
 }
