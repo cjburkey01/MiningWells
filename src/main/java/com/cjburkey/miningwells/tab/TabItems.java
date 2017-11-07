@@ -1,5 +1,6 @@
 package com.cjburkey.miningwells.tab;
 
+import com.cjburkey.miningwells.item.ModItems;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -11,7 +12,7 @@ public class TabItems extends CreativeTabs {
 	}
 	
 	public ItemStack getTabIconItem() {
-		return new ItemStack(Items.APPLE, 1);
+		return new ItemStack(ModItems.itemIronGear, 1);
 	}
 	
 }

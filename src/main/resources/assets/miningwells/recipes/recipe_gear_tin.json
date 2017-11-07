@@ -1,0 +1,21 @@
+{
+    "result": {
+        "item": "miningwells:item_gear_tin"
+    },
+    "pattern": [
+        " x ",
+        "xyx",
+        " x "
+    ],
+    "type": "forge:ore_shaped",
+    "key": {
+        "x": {
+            "type": "forge:ore_dict",
+            "ore": "ingotTin"
+        },
+        "y": {
+            "type": "forge:ore_dict",
+            "ore": "gearStone"
+        }
+    }
+}

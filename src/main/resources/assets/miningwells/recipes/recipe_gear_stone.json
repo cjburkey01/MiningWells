@@ -1,0 +1,21 @@
+{
+    "result": {
+        "item": "miningwells:item_gear_stone"
+    },
+    "pattern": [
+        " x ",
+        "xyx",
+        " x "
+    ],
+    "type": "forge:ore_shaped",
+    "key": {
+        "x": {
+            "type": "forge:ore_dict",
+            "ore": "cobblestone"
+        },
+        "y": {
+            "type": "forge:ore_dict",
+            "ore": "stickWood"
+        }
+    }
+}

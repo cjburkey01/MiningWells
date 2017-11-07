@@ -1,0 +1,21 @@
+{
+    "result": {
+        "item": "miningwells:item_gear_copper"
+    },
+    "pattern": [
+        " x ",
+        "xyx",
+        " x "
+    ],
+    "type": "forge:ore_shaped",
+    "key": {
+        "x": {
+            "type": "forge:ore_dict",
+            "ore": "ingotCopper"
+        },
+        "y": {
+            "type": "forge:ore_dict",
+            "ore": "gearStone"
+        }
+    }
+}

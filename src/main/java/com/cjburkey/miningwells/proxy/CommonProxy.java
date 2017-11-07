@@ -1,7 +1,10 @@
 package com.cjburkey.miningwells.proxy;
 
 import com.cjburkey.miningwells.LogUtils;
+import com.cjburkey.miningwells.config.ModConfig;
+import com.cjburkey.miningwells.reg.ModOreDictionary;
 import com.cjburkey.miningwells.tab.ModTabs;
+import com.cjburkey.miningwells.tile.ModTiles;
 import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -20,6 +23,8 @@ public class CommonProxy {
 	public void preinit(FMLPreInitializationEvent e) {
 		startTimer();
 		
+		ModConfig.commonPreinit(e);
+		ModTiles.commonPreinit();
 		ModTabs.commonPreinit();
 		
 		LogUtils.info("PreInitialization event took " + endTimer() + " ms.");
@@ -27,6 +32,8 @@ public class CommonProxy {
 	
 	public void init(FMLInitializationEvent e) {
 		startTimer();
+		
+		ModOreDictionary.commonInit();
 		
 		LogUtils.info("Initialization event took " + endTimer() + " ms.");
 	}

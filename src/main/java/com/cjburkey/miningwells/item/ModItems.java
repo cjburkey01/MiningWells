@@ -13,29 +13,45 @@ import net.minecraftforge.event.RegistryEvent.Register;
 
 public class ModItems {
 	
-	public static ItemBase itemIronGear;
-	
 	private static final List<ItemBase> items = new ArrayList<>();
 	private static final List<ItemBaseBlock> blocks = new ArrayList<>();
+	private static Register<Item> itemRegistry;
+
+	public static ItemBase itemStoneGear;
+	public static ItemBase itemIronGear;
+	public static ItemBase itemTinGear;
+	public static ItemBase itemCopperGear;
+	public static ItemBase itemGoldGear;
+	public static ItemBase itemDiamondGear;
+	
+	private static final void addItems() {
+		itemStoneGear = registerItem(new ItemBase("item_gear_stone"));
+		itemIronGear = registerItem(new ItemBase("item_gear_iron"));
+		itemTinGear = registerItem(new ItemBase("item_gear_tin"));
+		itemCopperGear = registerItem(new ItemBase("item_gear_copper"));
+		itemGoldGear = registerItem(new ItemBase("item_gear_gold"));
+		itemDiamondGear = registerItem(new ItemBase("item_gear_diamond"));
+	}
 	
 	public static final void registerItems(Register<Item> e) {
-		itemIronGear = registerItem(e, new ItemBase("item_gear_iron"));
+		itemRegistry = e;
+		addItems();
 		for (BlockBase block : ModBlocks.getBlocks()) {
-			registerItemBlock(e, block);
+			registerItemBlock(block);
 		}
 		LogUtils.info("Registered items.");
 	}
 	
-	private static final ItemBase registerItem(Register<Item> e, ItemBase item) {
+	private static final ItemBase registerItem(ItemBase item) {
 		items.add(item);
-		e.getRegistry().register(item);
+		itemRegistry.getRegistry().register(item);
 		return item;
 	}
 	
-	public static final ItemBaseBlock registerItemBlock(Register<Item> e, BlockBase block) {
+	private static final ItemBaseBlock registerItemBlock(BlockBase block) {
 		ItemBaseBlock item = new ItemBaseBlock(block);
 		blocks.add(item);
-		e.getRegistry().register(item);
+		itemRegistry.getRegistry().register(item);
 		return item;
 	}
 	

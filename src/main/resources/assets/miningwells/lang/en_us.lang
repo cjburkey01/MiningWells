@@ -1,4 +1,13 @@
 itemGroup.tab_miningwells_items=Mining Wells Mod Items
 itemGroup.tab_miningwells_blocks=Mining Wells Mod Blocks
 
+item.item_gear_stone.name=Stone Gear
 item.item_gear_iron.name=Iron Gear
+item.item_gear_tin.name=Tin Gear
+item.item_gear_copper.name=Copper Gear
+item.item_gear_gold.name=Gold Gear
+item.item_gear_diamond.name=Diamond Gear
+
+tile.block_mining_well.name=Mining Well
+
+misc.mining_well_joke=§cAre you §aMINING WELL§7?

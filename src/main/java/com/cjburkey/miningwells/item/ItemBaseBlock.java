@@ -9,8 +9,8 @@ public class ItemBaseBlock extends ItemBlock {
 
 	public ItemBaseBlock(BlockBase block) {
 		super(block);
-		setUnlocalizedName(block.getUnlocalizedName());
-		setRegistryName(ModInfo.MODID, block.getUnlocalizedName());
+		setUnlocalizedName(block.getRegistryName().getResourcePath());
+		setRegistryName(ModInfo.MODID, block.getRegistryName().getResourcePath());
 		setCreativeTab(ModTabs.tabBlocks);
 	}
 	
