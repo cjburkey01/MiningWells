@@ -32,7 +32,7 @@ public class TileEntityMiningWell extends TileEntity implements ITickable, IEner
 	}
 
 	public void update() {
-		if (!world.isRemote) {
+		if (!world.isRemote && !receivingRedstoneSignal()) {
 			if (timer >= ModConfig.ticksBetweenMining) {
 				timer = 0;
 				tryToMineBlock();
@@ -55,7 +55,9 @@ public class TileEntityMiningWell extends TileEntity implements ITickable, IEner
 			if (!blockState.getBlock().equals(Blocks.AIR) && blockState.getBlockHardness(getWorld(), pos) >= 0.0f) {
 				mineBlock(pos);
 			}
-			getWorld().setBlockState(pos, ModBlocks.blockWellExtension.getDefaultState());
+			if (blockState.getBlock().equals(Blocks.AIR)) {
+				getWorld().setBlockState(pos, ModBlocks.blockWellExtension.getDefaultState());
+			}
 		}
 	}
 	
@@ -68,9 +70,14 @@ public class TileEntityMiningWell extends TileEntity implements ITickable, IEner
 		IBlockState block = getWorld().getBlockState(pos);
 		for (ItemStack stack : Utils.getBlockDrops(pos, getWorld())) {
 			if (!addToAdjacentInventory(stack)) {
-				addStackToWorld(stack);
+				dropStack(stack);
 			}
 		}
+		getWorld().destroyBlock(pos, false);
+	}
+	
+	private boolean receivingRedstoneSignal() {
+		return getWorld().isBlockPowered(getPos());
 	}
 	
 	private boolean addToAdjacentInventory(ItemStack stack) {
@@ -106,7 +113,7 @@ public class TileEntityMiningWell extends TileEntity implements ITickable, IEner
 		return false;
 	}
 	
-	private void addStackToWorld(ItemStack stack) {
+	private void dropStack(ItemStack stack) {
 		EntityItem item = new EntityItem(getWorld(), getPos().getX() + 0.5f, getPos().getY() + 1.0f, getPos().getZ() + 0.5f, stack);
 		item.setVelocity(0, 0.25, 0);
 		getWorld().spawnEntity(item);

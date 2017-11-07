@@ -1,5 +1,6 @@
 package com.cjburkey.miningwells.tab;
 
+import com.cjburkey.miningwells.block.ModBlocks;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -12,7 +13,7 @@ public class TabBlocks extends CreativeTabs {
 	}
 	
 	public ItemStack getTabIconItem() {
-		return new ItemStack(Blocks.COBBLESTONE, 1);
+		return new ItemStack(ModBlocks.blockMiningWell, 1);
 	}
 	
 }
