@@ -1,5 +1,6 @@
 package com.cjburkey.miningwells.tile;
 
+import com.cjburkey.miningwells.InventoryUtils;
 import com.cjburkey.miningwells.Utils;
 import com.cjburkey.miningwells.block.BlockMiningWell;
 import com.cjburkey.miningwells.block.ModBlocks;
@@ -100,7 +101,7 @@ public class TileEntityMiningWell extends TileEntity implements ITickable, IEner
 		TileEntity ent = getWorld().getTileEntity(pos);
 		if (ent != null && ent instanceof IInventory) {
 			IInventory inv = (IInventory) ent;
-			return Utils.addStackToInv(stack, inv);
+			return InventoryUtils.addStackToInventory(stack, inv);
 		}
 		return false;
 	}
