@@ -7,10 +7,12 @@ import com.cjburkey.miningwells.tile.TileEntityMiningWell;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -19,11 +21,11 @@ public class BlockMiningWell extends BlockBase implements ITileEntityProvider {
 
 	public BlockMiningWell() {
 		super(Material.IRON, "block_mining_well");
-		this.setHardness(3.5f);
-		this.setHarvestLevel("pickaxe", 1);
-		this.setSoundType(SoundType.METAL);
+		setHardness(3.5f);
+		setHarvestLevel("pickaxe", 1);
+		setSoundType(SoundType.METAL);
 	}
-
+	
 	public TileEntity createNewTileEntity(World world, int data) {
 		return new TileEntityMiningWell(this);
 	}

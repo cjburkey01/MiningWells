@@ -9,5 +9,6 @@ item.item_gear_gold.name=Gold Gear
 item.item_gear_diamond.name=Diamond Gear
 
 tile.block_mining_well.name=Mining Well
+tile.block_well_extension.name=Well Extension
 
-misc.mining_well_joke=§cAre you §aMINING WELL§7?
+misc.mining_well_joke=§cAre you §aMINING WELL§7? HAHA MUY FUNNY.

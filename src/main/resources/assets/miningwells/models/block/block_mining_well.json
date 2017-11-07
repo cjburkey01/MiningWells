@@ -1,6 +1,12 @@
 {
-    "parent": "block/cube_all",
+    "parent": "block/cube",
     "textures": {
-        "all": "miningwells:blocks/block_mining_well"
+        "down": "miningwells:blocks/block_mining_well",
+        "up": "miningwells:blocks/block_mining_well",
+        "north": "miningwells:blocks/block_mining_well",
+        "south": "miningwells:blocks/block_mining_well",
+        "west": "miningwells:blocks/block_mining_well",
+        "east": "miningwells:blocks/block_mining_well",
+        "particle": "miningwells:blocks/block_mining_well"
     }
 }

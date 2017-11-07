@@ -1,0 +1,25 @@
+{
+    "parent": "block/block",
+    "elements": [
+        {   "from": [ 5, 0, 5 ],
+            "to": [ 11, 16, 11 ],
+            "faces": {
+                "down":  { "texture": "#down", "cullface": "down" },
+                "up":    { "texture": "#up", "cullface": "up" },
+                "north": { "texture": "#north", "cullface": "north" },
+                "south": { "texture": "#south", "cullface": "south" },
+                "west":  { "texture": "#west", "cullface": "west" },
+                "east":  { "texture": "#east", "cullface": "east" }
+            }
+        }
+    ],
+    "textures": {
+        "down": "miningwells:blocks/block_well_extension_top",
+        "up": "miningwells:blocks/block_well_extension_top",
+        "north": "miningwells:blocks/block_well_extension_side",
+        "south": "miningwells:blocks/block_well_extension_side",
+        "west": "miningwells:blocks/block_well_extension_side",
+        "east": "miningwells:blocks/block_well_extension_side",
+        "particle": "miningwells:blocks/block_well_extension_side"
+    }
+}
