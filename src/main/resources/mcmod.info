@@ -1,7 +1,7 @@
 [
 {
   "modid": "${modid}",
-  "name": "${name}",
+  "name": "Burkey's Mining Wells",
   "description": "A simple alternative/update of Buildcraft's amazing mining wells.",
   "version": "${version}",
   "mcversion": "${mcversion}",
