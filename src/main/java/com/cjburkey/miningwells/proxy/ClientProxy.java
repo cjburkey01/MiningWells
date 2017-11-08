@@ -1,5 +1,6 @@
 package com.cjburkey.miningwells.proxy;
 
+import com.cjburkey.core.gui.NumFormatHelper;
 import net.minecraftforge.fml.common.event.FMLConstructionEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -13,6 +14,8 @@ public class ClientProxy extends CommonProxy {
 	
 	public void preinit(FMLPreInitializationEvent e) {
 		super.preinit(e);
+		
+		NumFormatHelper.commonPreinit();
 	}
 	
 	public void init(FMLInitializationEvent e) {

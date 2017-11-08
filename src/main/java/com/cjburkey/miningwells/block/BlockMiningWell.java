@@ -2,7 +2,9 @@ package com.cjburkey.miningwells.block;
 
 import java.util.List;
 import javax.annotation.Nullable;
+import com.cjburkey.miningwells.MiningWells;
 import com.cjburkey.miningwells.config.ModConfig;
+import com.cjburkey.miningwells.gui.ModGuiHandler;
 import com.cjburkey.miningwells.tile.TileEntityMiningWell;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
@@ -30,6 +32,9 @@ public class BlockMiningWell extends BlockBase implements ITileEntityProvider {
 	}
 	
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing dir, float x, float y, float z) {
+		if (!world.isRemote) {
+			player.openGui(MiningWells.instance, ModGuiHandler.GUI_WELL, world, pos.getX(), pos.getY(), pos.getZ());
+		}
 		return true;
 	}
 	

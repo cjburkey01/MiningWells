@@ -1,12 +1,13 @@
 package com.cjburkey.miningwells.tile;
 
-import com.cjburkey.miningwells.InventoryUtils;
-import com.cjburkey.miningwells.Utils;
+import com.cjburkey.core.inventory.InventoryUtils;
+import com.cjburkey.core.misc.Utils;
 import com.cjburkey.miningwells.block.BlockMiningWell;
 import com.cjburkey.miningwells.block.ModBlocks;
 import com.cjburkey.miningwells.config.ModConfig;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -15,11 +16,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 
-public class TileEntityMiningWell extends TileEntity implements ITickable, IEnergyStorage {
+public class TileEntityMiningWell extends TileEntity implements ITickable, IEnergyStorage, IInventory {
 	
 	private int timer = 0;
 	private int energy = 0;
@@ -118,6 +121,8 @@ public class TileEntityMiningWell extends TileEntity implements ITickable, IEner
 		item.setVelocity(0, 0.25, 0);
 		getWorld().spawnEntity(item);
 	}
+	
+	// Begin Energy
 
 	public int receiveEnergy(int receive, boolean simulate) {
 		int ableToReceive = Math.min(ModConfig.maxEnergy - energy, receive);
@@ -152,6 +157,81 @@ public class TileEntityMiningWell extends TileEntity implements ITickable, IEner
 	public boolean canReceive() {
 		return true;
 	}
+	
+	public boolean isWorking() {
+		return true;
+	}
+	
+	// Begin Inventory
+	
+	public String getName() {
+		return "tile.block_mining_well.name";
+	}
+
+	public boolean hasCustomName() {
+		return false;
+	}
+	
+	public ITextComponent getDisplayName() {
+		return new TextComponentTranslation(getName());
+	}
+
+	public int getSizeInventory() {
+		return 0;
+	}
+
+	public boolean isEmpty() {
+		return false;
+	}
+
+	public ItemStack getStackInSlot(int index) {
+		return ItemStack.EMPTY;
+	}
+
+	public ItemStack decrStackSize(int index, int count) {
+		return ItemStack.EMPTY;
+	}
+
+	public ItemStack removeStackFromSlot(int index) {
+		return ItemStack.EMPTY;
+	}
+
+	public void setInventorySlotContents(int index, ItemStack stack) {
+	}
+
+	public int getInventoryStackLimit() {
+		return 64;
+	}
+
+	public boolean isUsableByPlayer(EntityPlayer player) {
+		return player.getDistanceSq(pos.add(0.5f, 0.5f, 0.5f)) <= 64;
+	}
+
+	public void openInventory(EntityPlayer player) {
+	}
+
+	public void closeInventory(EntityPlayer player) {
+	}
+
+	public boolean isItemValidForSlot(int index, ItemStack stack) {
+		return false;
+	}
+
+	public int getField(int id) {
+		return 0;
+	}
+
+	public void setField(int id, int value) {
+	}
+
+	public int getFieldCount() {
+		return 0;
+	}
+
+	public void clear() {
+	}
+	
+	// Begin NBT, capabilities, rendering, etc
 	
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		if (nbt == null) {

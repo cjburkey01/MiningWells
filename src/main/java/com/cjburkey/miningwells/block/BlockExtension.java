@@ -25,9 +25,15 @@ public class BlockExtension extends BlockBase {
 		setCreativeTab(null);
 	}
 	
-	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		if (!canBlockStay(world, pos)) {
 			world.destroyBlock(pos, false);
+		}
+	}
+	
+	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos from) {
+		if (!canBlockStay(world, pos)) {
+			world.scheduleUpdate(pos, this, 1);
 		}
 	}
 	

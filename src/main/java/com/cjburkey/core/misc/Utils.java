@@ -1,4 +1,4 @@
-package com.cjburkey.miningwells;
+package com.cjburkey.core.misc;
 
 import java.util.List;
 import com.cjburkey.miningwells.config.ModConfig;

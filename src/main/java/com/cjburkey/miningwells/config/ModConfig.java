@@ -15,8 +15,8 @@ public class ModConfig {
 		Configuration config = new Configuration(new File(e.getModConfigurationDirectory(), "/miningwells/config.cfg"));
 		config.load();
 		
-		displayMiningWellJoke = config.getBoolean("displayMiningWellJoke", "misc", true, "Displays the joke: \"Are you MINING WELL?\" on all Mining Well items. Very necessary.");
-		ticksBetweenMining = config.getInt("ticksBetweenMining", "miningwell", 1, 0, 20, "The minimum number of ticks per mining operation. 0 means that the next block will be broken in the next tick, if power supply is high enough.");
+		displayMiningWellJoke = config.getBoolean("displayMiningWellJoke", "misc", true, "Displays the a pun on all Mining Well items. Yes, very necessary.");
+		ticksBetweenMining = config.getInt("ticksBetweenMining", "miningwell", 0, 0, 35, "The minimum number of ticks per mining operation. 0 means that the next block will be broken in the next tick, if power supply is high enough.");
 		energyPerOperation = config.getInt("energyPerOperation", "miningwell", 256, 20, 1200, "The number of energy units per operation (this is multiplied by the hardness of a block + 1). If this number is 20, stone will require 40 to mine. Subtract and extra 20 for exact calculations.");
 		maxEnergy = config.getInt("maxEnergy", "miningwell", 16384, 100, 1000000, "The maximum number of energy units that can be stored inside the mining well.");
 		

@@ -1,4 +1,4 @@
-package com.cjburkey.miningwells;
+package com.cjburkey.core.inventory;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

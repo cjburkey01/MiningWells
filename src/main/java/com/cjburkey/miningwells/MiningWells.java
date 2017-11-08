@@ -23,24 +23,42 @@ public class MiningWells {
 	@SidedProxy(clientSide = ModInfo.CLIENT_PROXY, serverSide = ModInfo.SERVER_PROXY)
 	public static CommonProxy proxy;
 	
+	private long start;
+	
 	@EventHandler
 	public void construct(FMLConstructionEvent e) {
+		startTimer();
 		proxy.construct(e);
+		LogUtils.info("Construction event took " + endTimer() + " ms.");
 	}
 	
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent e) {
+		startTimer();
 		proxy.preinit(e);
+		LogUtils.info("PreInitialization event took " + endTimer() + " ms.");
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent e) {
+		startTimer();
 		proxy.init(e);
+		LogUtils.info("Initialization event took " + endTimer() + " ms.");
 	}
 	
 	@EventHandler
 	public void postinit(FMLPostInitializationEvent e) {
+		startTimer();
 		proxy.postinit(e);
+		LogUtils.info("PostInitialization event took " + endTimer() + " ms.");
+	}
+	
+	private void startTimer() {
+		start = System.nanoTime();
+	}
+	
+	private long endTimer() {
+		return (System.nanoTime() - start) / 1000000;
 	}
 	
 }
