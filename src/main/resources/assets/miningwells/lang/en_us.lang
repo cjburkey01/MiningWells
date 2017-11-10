@@ -1,5 +1,5 @@
-itemGroup.tab_miningwells_items=Mining Wells Mod Items
-itemGroup.tab_miningwells_blocks=Mining Wells Mod Blocks
+itemGroup.tab_miningwells_items=Burkey's Mining Wells Items
+itemGroup.tab_miningwells_blocks=Burkey's Mining Wells Blocks
 
 item.item_gear_stone.name=Stone Gear
 item.item_gear_iron.name=Iron Gear
@@ -7,8 +7,21 @@ item.item_gear_tin.name=Tin Gear
 item.item_gear_copper.name=Copper Gear
 item.item_gear_gold.name=Gold Gear
 item.item_gear_diamond.name=Diamond Gear
+item.item_upgrade_bpo_1.name=Blocks-Per-Operation Upgrade
+item.item_upgrade_bpo_2.name=Blocks-Per-Operation Upgrade
+item.item_upgrade_bpo_3.name=Blocks-Per-Operation Upgrade
+item.item_upgrade_bpo_4.name=Blocks-Per-Operation Upgrade
+item.item_upgrade_fortune_1.name=Fortune Upgrade
+item.item_upgrade_fortune_2.name=Fortune Upgrade
+item.item_upgrade_fortune_3.name=Fortune Upgrade
+item.item_upgrade_silk_1.name=Silk Touch Upgrade
 
 tile.block_mining_well.name=Mining Well
 tile.block_well_extension.name=Well Extension
 
 misc.mining_well_joke=§cI'm §aMINING WELL§7, how are you?
+
+upgrade.bpo=Increases the blocks broken per mining operation.
+upgrade.fortune=Increase the fortune level
+upgrade.silk=Pick up them fragil blocks
+upgrade.level_info=Level

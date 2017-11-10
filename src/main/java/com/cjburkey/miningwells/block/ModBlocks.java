@@ -28,6 +28,7 @@ public class ModBlocks {
 	private static final BlockBase registerBlock(BlockBase block) {
 		blocks.add(block);
 		blockRegistry.getRegistry().register(block);
+		LogUtils.info("Registered block: " + block.getUnlocalizedName().substring(5));
 		return block;
 	}
 	

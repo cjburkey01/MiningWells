@@ -1,10 +1,13 @@
 package com.cjburkey.miningwells.tile;
 
+import java.util.List;
 import com.cjburkey.core.inventory.InventoryUtils;
 import com.cjburkey.core.misc.Utils;
+import com.cjburkey.miningwells.LogUtils;
 import com.cjburkey.miningwells.block.BlockMiningWell;
 import com.cjburkey.miningwells.block.ModBlocks;
 import com.cjburkey.miningwells.config.ModConfig;
+import com.cjburkey.miningwells.player.FakePlayerHandler;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,12 +18,14 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.event.ForgeEventFactory;
 
 public class TileEntityMiningWell extends TileEntity implements ITickable, IEnergyStorage, IInventory {
 	
@@ -71,12 +76,26 @@ public class TileEntityMiningWell extends TileEntity implements ITickable, IEner
 	
 	private void mineBlock(BlockPos pos) {
 		IBlockState block = getWorld().getBlockState(pos);
-		for (ItemStack stack : Utils.getBlockDrops(pos, getWorld())) {
+		handleDrops(block, pos);
+		getWorld().destroyBlock(pos, false);
+	}
+	
+	private void handleDrops(IBlockState state, BlockPos pos) {
+		List<ItemStack> drops = Utils.getBlockDrops(pos, getWorld());
+		ForgeEventFactory.fireBlockHarvesting(drops, getWorld(), pos, state, 0, 1.0f, false, FakePlayerHandler.getFakePlayer());
+		AxisAlignedBB bb = new AxisAlignedBB(getPos().west().down(2).north(), new BlockPos(getPos().getX() + 2, 0, getPos().getZ() + 2));
+		List<EntityItem> ents = getWorld().getEntitiesWithinAABB(EntityItem.class, bb);
+		for (EntityItem ent : ents) {
+			drops.add(ent.getItem());
+			getWorld().removeEntity(ent);
+		}
+		ents.clear();
+		for (ItemStack stack : drops) {
 			if (!addToAdjacentInventory(stack)) {
 				dropStack(stack);
 			}
 		}
-		getWorld().destroyBlock(pos, false);
+		drops.clear();
 	}
 	
 	private boolean receivingRedstoneSignal() {
@@ -84,24 +103,19 @@ public class TileEntityMiningWell extends TileEntity implements ITickable, IEner
 	}
 	
 	private boolean addToAdjacentInventory(ItemStack stack) {
-		BlockPos above = new BlockPos(getPos().getX(), getPos().getY() + 1, getPos().getZ());
-		BlockPos right = new BlockPos(getPos().getX() + 1, getPos().getY(), getPos().getZ());
-		BlockPos left = new BlockPos(getPos().getX() - 1, getPos().getY(), getPos().getZ());
-		BlockPos front = new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ() + 1);
-		BlockPos back = new BlockPos(getPos().getX(), getPos().getY(), getPos().getZ() - 1);
-		if (attemptToAddStackToBlock(above, stack)) {
+		if (attemptToAddStackToBlock(getPos().up(), stack)) {
 			return true;
 		}
-		if (attemptToAddStackToBlock(right, stack)) {
+		if (attemptToAddStackToBlock(getPos().east(), stack)) {
 			return true;
 		}
-		if (attemptToAddStackToBlock(left, stack)) {
+		if (attemptToAddStackToBlock(getPos().west(), stack)) {
 			return true;
 		}
-		if (attemptToAddStackToBlock(front, stack)) {
+		if (attemptToAddStackToBlock(getPos().north(), stack)) {
 			return true;
 		}
-		if (attemptToAddStackToBlock(back, stack)) {
+		if (attemptToAddStackToBlock(getPos().south(), stack)) {
 			return true;
 		}
 		return false;
@@ -118,7 +132,6 @@ public class TileEntityMiningWell extends TileEntity implements ITickable, IEner
 	
 	private void dropStack(ItemStack stack) {
 		EntityItem item = new EntityItem(getWorld(), getPos().getX() + 0.5f, getPos().getY() + 1.0f, getPos().getZ() + 0.5f, stack);
-		item.setVelocity(0, 0.25, 0);
 		getWorld().spawnEntity(item);
 	}
 	
