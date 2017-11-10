@@ -2,18 +2,16 @@ package com.cjburkey.miningwells.container;
 
 import com.cjburkey.miningwells.tile.TileEntityMiningWell;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
-public class ContainerWell extends Container {
-	
-	private IInventory plyInv;
-	private TileEntityMiningWell te;
+public class ContainerWell extends ContainerBase {
 	
 	public ContainerWell(IInventory plyInv, TileEntityMiningWell te) {
-		this.plyInv = plyInv;
-		this.te = te;
+		super(te, (InventoryPlayer) plyInv);
+		addPlayerInventory();
 	}
 	
 	public ItemStack transferStackInSlot(EntityPlayer playerIn, int fromSlot) {

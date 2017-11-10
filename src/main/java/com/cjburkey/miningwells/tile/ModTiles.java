@@ -6,6 +6,7 @@ public class ModTiles {
 	
 	public static final void commonPreinit() {
 		GameRegistry.registerTileEntity(TileEntityMiningWell.class, "tile_mining_well");
+		GameRegistry.registerTileEntity(TileEntityUpgradeStation.class, "tile_upgrade_station");
 	}
 	
 }

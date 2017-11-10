@@ -18,6 +18,7 @@ item.item_upgrade_silk_1.name=Silk Touch Upgrade
 
 tile.block_mining_well.name=Mining Well
 tile.block_well_extension.name=Well Extension
+tile.block_upgrade_station.name=Mining Well Upgrade Station
 
 misc.mining_well_joke=§cI'm §aMINING WELL§7, how are you?
 

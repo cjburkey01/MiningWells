@@ -13,10 +13,12 @@ public class ModBlocks {
 	
 	public static BlockMiningWell blockMiningWell;
 	public static BlockExtension blockWellExtension;
+	public static BlockUpgradeStation blockUpgradeStation;
 	
 	private static final void addBlocks() {
 		blockMiningWell = (BlockMiningWell) registerBlock(new BlockMiningWell());
 		blockWellExtension = (BlockExtension) registerBlock(new BlockExtension());
+		blockUpgradeStation = (BlockUpgradeStation) registerBlock(new BlockUpgradeStation());
 	}
 	
 	public static final void registerBlocks(Register<Block> e) {
