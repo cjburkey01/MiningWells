@@ -17,6 +17,7 @@ public class ItemUpgrade extends ItemBase {
 	
 	public ItemUpgrade(EnumUpgradeType upgradeType, int level) {
 		super("item_upgrade_" + upgradeType.getPublicName() + "_" + level);
+		setMaxStackSize(1);
 		this.upgradeType = upgradeType;
 		upgradeLevel = level;
 	}

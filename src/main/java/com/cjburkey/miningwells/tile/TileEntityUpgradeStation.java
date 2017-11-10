@@ -4,21 +4,28 @@ import com.cjburkey.miningwells.item.upgrade.ItemUpgrade;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentTranslation;
 
 public class TileEntityUpgradeStation extends TileEntity implements IInventory {
 	
 	private final int size = 5;
-	
 	private final NonNullList<ItemStack> inv = NonNullList.<ItemStack>withSize(size, ItemStack.EMPTY);
 	
 	public String getName() {
-		return "tile_upgrade_station";
+		return "tile.block_upgrade_station.name";
 	}
 	
 	public boolean hasCustomName() {
 		return false;
+	}
+	
+	public ITextComponent getDisplayName() {
+		return new TextComponentTranslation(getName());
 	}
 	
 	public int getSizeInventory() {
@@ -102,6 +109,31 @@ public class TileEntityUpgradeStation extends TileEntity implements IInventory {
 		for (int i = 0; i < size; i ++) {
 			setInventorySlotContents(i, ItemStack.EMPTY);
 		}
+	}
+	
+	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+		if (nbt == null) {
+			nbt = new NBTTagCompound();
+		}
+		NBTTagList items = new NBTTagList();
+		for (int i = 0; i < size; i ++) {
+			items.appendTag(inv.get(i).writeToNBT(new NBTTagCompound()));
+		}
+		nbt.setTag("contents", items);
+		return super.writeToNBT(nbt);
+	}
+	
+	public void readFromNBT(NBTTagCompound nbt) {
+		if (nbt != null && nbt.hasKey("contents")) {
+			NBTTagList list = nbt.getTagList("contents", 10);
+			for (int i = 0; i < list.tagCount(); i ++) {
+				NBTTagCompound item = list.getCompoundTagAt(i);
+				if (item != null) {
+					setInventorySlotContents(i, new ItemStack(item));
+				}
+			}
+		}
+		super.readFromNBT(nbt);
 	}
 	
 }
