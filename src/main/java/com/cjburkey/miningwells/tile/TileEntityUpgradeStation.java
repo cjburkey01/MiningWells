@@ -1,5 +1,6 @@
 package com.cjburkey.miningwells.tile;
 
+import com.cjburkey.miningwells.LogUtils;
 import com.cjburkey.miningwells.item.upgrade.ItemUpgrade;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -13,7 +14,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 
 public class TileEntityUpgradeStation extends TileEntity implements IInventory {
 	
-	private final int size = 5;
+	private final int size = 3;
 	private final NonNullList<ItemStack> inv = NonNullList.<ItemStack>withSize(size, ItemStack.EMPTY);
 	
 	public String getName() {

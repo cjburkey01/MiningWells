@@ -21,6 +21,12 @@ public class GuiUpgradeStation extends GuiContainer {
 		this.plyInv = plyInv;
 	}
 	
+	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		drawDefaultBackground();
+		super.drawScreen(mouseX, mouseY, partialTicks);
+		renderHoveredToolTip(mouseX, mouseY);
+	}
+	
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
 		mc.getTextureManager().bindTexture(new ResourceLocation(ModInfo.MODID, "textures/gui/gui_upgrade_station.png"));

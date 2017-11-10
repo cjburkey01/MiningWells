@@ -17,14 +17,15 @@ public class ContainerBase extends Container {
 	}
 	
 	protected void addPlayerInventory() {
-		int i = 0;
-		for(int x = 0; x < 9; ++x) {
-			addSlotToContainer(new Slot(plyInv, i ++, 8 + x * 18, 142));
-		}
+		int i = 9;
 		for(int y = 0; y < 3; ++y) {
 			for(int x = 0; x < 9; ++x) {
 				addSlotToContainer(new Slot(plyInv, i ++, 8 + x * 18, 84 + y * 18));
 			}
+		}
+		i = 0;
+		for(int x = 0; x < 9; ++x) {
+			addSlotToContainer(new Slot(plyInv, i ++, 8 + x * 18, 142));
 		}
 	}
 	

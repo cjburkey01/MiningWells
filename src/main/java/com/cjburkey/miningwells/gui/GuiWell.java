@@ -9,7 +9,7 @@ import com.cjburkey.core.gui.tooltip.ToolTipManager;
 import com.cjburkey.core.gui.tooltip.ToolTipManager.ToolTipRenderer;
 import com.cjburkey.miningwells.LogUtils;
 import com.cjburkey.miningwells.ModInfo;
-import com.cjburkey.miningwells.container.ContainerWell;
+import com.cjburkey.miningwells.container.ContainerMiningWell;
 import com.cjburkey.miningwells.packet.ModPackets;
 import com.cjburkey.miningwells.packet.PacketWellToServer;
 import com.cjburkey.miningwells.tile.TileEntityMiningWell;
@@ -38,7 +38,7 @@ public class GuiWell extends GuiContainer implements ToolTipRenderer {
 	private TileEntityMiningWell te;
 
 	public GuiWell(EntityPlayer player, TileEntityMiningWell te) {
-		super(new ContainerWell(player.inventory, te));
+		super(new ContainerMiningWell(player.inventory, te));
 		
 		plyInv = player.inventory;
 		this.te = te;
@@ -48,7 +48,9 @@ public class GuiWell extends GuiContainer implements ToolTipRenderer {
 	}
 	
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, partialTicks);
+		renderHoveredToolTip(mouseX, mouseY);
 		ttm.drawTooltips(this, mouseX, mouseY);
 	}
 	

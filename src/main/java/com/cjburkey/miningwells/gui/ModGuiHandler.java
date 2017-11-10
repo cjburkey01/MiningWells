@@ -1,7 +1,7 @@
 package com.cjburkey.miningwells.gui;
 
 import com.cjburkey.miningwells.container.ContainerUpgradeStation;
-import com.cjburkey.miningwells.container.ContainerWell;
+import com.cjburkey.miningwells.container.ContainerMiningWell;
 import com.cjburkey.miningwells.tile.TileEntityMiningWell;
 import com.cjburkey.miningwells.tile.TileEntityUpgradeStation;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,7 +18,7 @@ public class ModGuiHandler implements IGuiHandler {
 		// Switch statements shouldn't be indented because the Java coding convention says so, but I can't stand it; deal with tabs.
 		switch(id) {
 			case GUI_WELL:
-				return new ContainerWell(player.inventory, (TileEntityMiningWell) world.getTileEntity(new BlockPos(x, y, z)));
+				return new ContainerMiningWell(player.inventory, (TileEntityMiningWell) world.getTileEntity(new BlockPos(x, y, z)));
 			case GUI_UPGRADE_STATION:
 				return new ContainerUpgradeStation((TileEntityUpgradeStation) world.getTileEntity(new BlockPos(x, y, z)), player.inventory);
 			default:

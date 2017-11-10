@@ -7,9 +7,9 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
-public class ContainerWell extends ContainerBase {
+public class ContainerMiningWell extends ContainerBase {
 	
-	public ContainerWell(IInventory plyInv, TileEntityMiningWell te) {
+	public ContainerMiningWell(IInventory plyInv, TileEntityMiningWell te) {
 		super(te, (InventoryPlayer) plyInv);
 		addPlayerInventory();
 	}
