@@ -21,7 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiWell extends GuiContainer implements ToolTipRenderer {
+public class GuiMiningWell extends GuiContainer implements ToolTipRenderer {
 	
 	public static int energy;
 	public static int maxEnergy;
@@ -37,7 +37,7 @@ public class GuiWell extends GuiContainer implements ToolTipRenderer {
 	private InventoryPlayer plyInv;
 	private TileEntityMiningWell te;
 
-	public GuiWell(EntityPlayer player, TileEntityMiningWell te) {
+	public GuiMiningWell(EntityPlayer player, TileEntityMiningWell te) {
 		super(new ContainerMiningWell(player.inventory, te));
 		
 		plyInv = player.inventory;
@@ -64,8 +64,8 @@ public class GuiWell extends GuiContainer implements ToolTipRenderer {
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 		super.drawGuiContainerForegroundLayer(x, y);
 		String s = te.getDisplayName().getUnformattedText();
-		getFontRenderer().drawString(s, 88 - getFontRenderer().getStringWidth(s) / 2, 6, 0x404040);
-		getFontRenderer().drawString(plyInv.getDisplayName().getUnformattedText(), 8, 72, 0x404040);
+		getFontRenderer().drawString(s, 88 - getFontRenderer().getStringWidth(s) / 2, 6, 0xBFBFBF);
+		getFontRenderer().drawString(plyInv.getDisplayName().getUnformattedText(), 8, 72, 0xBFBFBF);
 		drawEnergyBar();
 	}
 	

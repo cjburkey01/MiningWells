@@ -36,8 +36,8 @@ public class GuiUpgradeStation extends GuiContainer {
 	protected void drawGuiContainerForegroundLayer(int x, int y) {
 		super.drawGuiContainerForegroundLayer(x, y);
 		String s = te.getDisplayName().getUnformattedText();
-		fontRenderer.drawString(s, 88 - fontRenderer.getStringWidth(s) / 2, 6, 0x404040);
-		fontRenderer.drawString(plyInv.getDisplayName().getUnformattedText(), 8, 72, 0x404040);
+		fontRenderer.drawString(s, 88 - fontRenderer.getStringWidth(s) / 2, 6, 0xBFBFBF);
+		fontRenderer.drawString(plyInv.getDisplayName().getUnformattedText(), 8, 72, 0xBFBFBF);
 	}
 	
 }

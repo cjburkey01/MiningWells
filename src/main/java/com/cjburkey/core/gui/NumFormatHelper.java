@@ -10,10 +10,10 @@ public class NumFormatHelper {
 	
 	public static final void commonPreinit() {
 		try {
-			nf = NumberFormat.getInstance(new Locale("en"));
+			nf = NumberFormat.getInstance(Locale.getDefault());
 		} catch(Exception e) {
-			LogUtils.error("Unable to construct a number formatter; numbers may look ugly. Exception: " + e.getMessage());
-			LogUtils.warn("This may be a deobf bug...you'll likely never see this in game.");
+			LogUtils.error("Unable to construct a number formatter. Numbers may look ugly, error: " + e.getMessage());
+			LogUtils.warn("This may be a deobf bug...you'll likely/hopefully never see this in game.");
 		}
 	}
 	

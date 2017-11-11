@@ -60,10 +60,10 @@ public class TileEntityMiningWell extends TileEntity implements ITickable, IEner
 		int reqdEnergy = getEnergyRequired(pos, blockState);
 		if (reqdEnergy == extractEnergy(reqdEnergy, true)) {
 			extractEnergy(reqdEnergy, false);
-			if (!blockState.getBlock().equals(Blocks.AIR) && blockState.getBlockHardness(getWorld(), pos) >= 0.0f) {
+			if (!getWorld().isAirBlock(pos) && blockState.getBlockHardness(getWorld(), pos) >= 0.0f) {
 				mineBlock(pos);
 			}
-			if (blockState.getBlock().equals(Blocks.AIR)) {
+			if (blockState.getBlockHardness(getWorld(), pos) >= 0.0f || getWorld().isAirBlock(pos)) {
 				getWorld().setBlockState(pos, ModBlocks.blockWellExtension.getDefaultState());
 			}
 		}
@@ -77,7 +77,6 @@ public class TileEntityMiningWell extends TileEntity implements ITickable, IEner
 	private void mineBlock(BlockPos pos) {
 		IBlockState block = getWorld().getBlockState(pos);
 		handleDrops(block, pos);
-		getWorld().destroyBlock(pos, false);
 	}
 	
 	private void handleDrops(IBlockState state, BlockPos pos) {

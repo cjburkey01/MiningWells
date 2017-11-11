@@ -27,12 +27,12 @@ public class BlockExtension extends BlockBase {
 	
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		if (!canBlockStay(world, pos)) {
-			world.destroyBlock(pos, false);
+			world.setBlockToAir(pos);
 		}
 	}
 	
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos from) {
-		if (!canBlockStay(world, pos)) {
+		if (from.getX() == pos.getX() && from.getZ() == pos.getZ()) {
 			world.scheduleUpdate(pos, this, 1);
 		}
 	}

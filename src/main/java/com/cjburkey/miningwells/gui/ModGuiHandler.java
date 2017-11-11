@@ -15,7 +15,7 @@ public class ModGuiHandler implements IGuiHandler {
 	public static final int GUI_UPGRADE_STATION = 1;
 	
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-		// Switch statements shouldn't be indented because the Java coding convention says so, but I can't stand it; deal with tabs.
+		// Switch statements shouldn't be indented because the Java coding convention says so, but I can't stand it; deal with my tabs.
 		switch(id) {
 			case GUI_WELL:
 				return new ContainerMiningWell(player.inventory, (TileEntityMiningWell) world.getTileEntity(new BlockPos(x, y, z)));
@@ -29,7 +29,7 @@ public class ModGuiHandler implements IGuiHandler {
 	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		switch(id) {
 			case GUI_WELL:
-				return new GuiWell(player, (TileEntityMiningWell) world.getTileEntity(new BlockPos(x, y, z)));
+				return new GuiMiningWell(player, (TileEntityMiningWell) world.getTileEntity(new BlockPos(x, y, z)));
 			case GUI_UPGRADE_STATION:
 				return new GuiUpgradeStation((TileEntityUpgradeStation) world.getTileEntity(new BlockPos(x, y, z)), player.inventory);
 			default:
