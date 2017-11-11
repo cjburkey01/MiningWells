@@ -1,5 +1,6 @@
 package com.cjburkey.miningwells.tile;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.cjburkey.core.inventory.InventoryUtils;
 import com.cjburkey.core.misc.Utils;
@@ -7,11 +8,13 @@ import com.cjburkey.miningwells.LogUtils;
 import com.cjburkey.miningwells.block.BlockMiningWell;
 import com.cjburkey.miningwells.block.ModBlocks;
 import com.cjburkey.miningwells.config.ModConfig;
+import com.cjburkey.miningwells.item.upgrade.EnumUpgradeType;
+import com.cjburkey.miningwells.item.upgrade.UpgradeSystem;
 import com.cjburkey.miningwells.player.FakePlayerHandler;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -43,58 +46,109 @@ public class TileEntityMiningWell extends TileEntity implements ITickable, IEner
 		if (!world.isRemote && !receivingRedstoneSignal()) {
 			if (timer >= ModConfig.ticksBetweenMining) {
 				timer = 0;
-				tryToMineBlock();
+				tryToMineBlocks(getBlocksPerOperation());
 			} else {
 				timer ++;
 			}
 		}
 	}
 	
-	private void tryToMineBlock() {
-		int y = getPos().getY() - 1;
-		BlockPos pos = new BlockPos(getPos().getX(), y, getPos().getZ());
-		while (getWorld().getBlockState(pos).getBlock().equals(ModBlocks.blockWellExtension)) {
-			pos = new BlockPos(getPos().getX(), -- y, getPos().getZ());
-		}
-		IBlockState blockState = getWorld().getBlockState(pos);
-		int reqdEnergy = getEnergyRequired(pos, blockState);
-		if (reqdEnergy == extractEnergy(reqdEnergy, true)) {
-			extractEnergy(reqdEnergy, false);
-			if (!getWorld().isAirBlock(pos) && blockState.getBlockHardness(getWorld(), pos) >= 0.0f) {
-				mineBlock(pos);
-			}
-			if (blockState.getBlockHardness(getWorld(), pos) >= 0.0f || getWorld().isAirBlock(pos)) {
-				getWorld().setBlockState(pos, ModBlocks.blockWellExtension.getDefaultState());
-			}
-		}
+	// If no upgrades are present, this method will return 1.
+	public int getBlocksPerOperation() {
+		return UpgradeSystem.getUpgradeLevel(getPos(), getWorld(), EnumUpgradeType.BLOCKS_PER_OPERATION) + 1;
 	}
 	
-	private int getEnergyRequired(BlockPos pos, IBlockState state) {
+	public int getFortune() {
+		return UpgradeSystem.getUpgradeLevel(getPos(), getWorld(), EnumUpgradeType.FORTUNE);
+	}
+	
+	// If silk touch is present, fortune will be ignored.
+	public boolean getSilkTouch() {
+		return UpgradeSystem.getUpgradeLevel(getPos(), getWorld(), EnumUpgradeType.SILK_TOUCH) == 1;
+	}
+	
+	private void tryToMineBlocks(int bps) {
+		for (int i = 0; i < bps; i ++) {
+			int y = getPos().getY() - 1;
+			BlockPos pos = new BlockPos(getPos().getX(), y, getPos().getZ());
+			while (getWorld().getBlockState(pos).getBlock().equals(ModBlocks.blockWellExtension)) {
+				pos = new BlockPos(getPos().getX(), -- y, getPos().getZ());
+			}
+			IBlockState blockState = getWorld().getBlockState(pos);
+			int reqdEnergy = getEnergyRequired(pos, blockState, getFortune(), getSilkTouch());
+			if (reqdEnergy == extractEnergy(reqdEnergy, true)) {
+				extractEnergy(reqdEnergy, false);
+				float hardness = blockState.getBlockHardness(getWorld(), pos);
+				if (!getWorld().isAirBlock(pos) && hardness >= 0.0f) {
+					mineBlock(pos);
+				}
+				if (hardness < 0.0f) {
+					return;
+				}
+				if (hardness >= 0.0f || getWorld().isAirBlock(pos)) {
+					getWorld().setBlockState(pos, ModBlocks.blockWellExtension.getDefaultState());
+				}
+			} else {
+				return;
+			}
+		}
+		destroyXp();
+	}
+	
+	private int getEnergyRequired(BlockPos pos, IBlockState state, int fortune, boolean silk) {
 		float hardness = Float.min(state.getBlockHardness(getWorld(), pos), 10.0f);
-		return (int) (Math.ceil(ModConfig.energyPerOperation * (hardness + 1.0)));
+		float out = (float) ModConfig.energyPerOperation * (float) (hardness + 1.0);
+		if (silk) {
+			out += out * ModConfig.silkRatio;
+		} else {
+			out += out * (fortune * ModConfig.fortuneRatio);
+		}
+		return (int) (Math.ceil(out));
 	}
 	
 	private void mineBlock(BlockPos pos) {
 		IBlockState block = getWorld().getBlockState(pos);
-		handleDrops(block, pos);
+		handleDrops(block, pos, getSilkTouch(), getFortune());
 	}
 	
-	private void handleDrops(IBlockState state, BlockPos pos) {
-		List<ItemStack> drops = Utils.getBlockDrops(pos, getWorld());
-		ForgeEventFactory.fireBlockHarvesting(drops, getWorld(), pos, state, 0, 1.0f, false, FakePlayerHandler.getFakePlayer());
-		AxisAlignedBB bb = new AxisAlignedBB(getPos().west().down(2).north(), new BlockPos(getPos().getX() + 2, 0, getPos().getZ() + 2));
+	private void handleDrops(IBlockState state, BlockPos pos, boolean silk, int fortune) {
+		List<ItemStack> drops = new ArrayList<>();
+		if (silk) {
+			drops.add(Utils.getSilkTouchDrop(pos, getWorld()));
+		} else {
+			drops.addAll(Utils.getBlockDrops(pos, getWorld(), fortune));
+		}
+		ForgeEventFactory.fireBlockHarvesting(drops, getWorld(), pos, state, fortune, 1.0f, silk, FakePlayerHandler.getFakePlayer());
+		
+		AxisAlignedBB bb = getAABBForExtension();
 		List<EntityItem> ents = getWorld().getEntitiesWithinAABB(EntityItem.class, bb);
 		for (EntityItem ent : ents) {
 			drops.add(ent.getItem());
 			getWorld().removeEntity(ent);
 		}
 		ents.clear();
+		
 		for (ItemStack stack : drops) {
+			if (stack.isEmpty()) {
+				continue;
+			}
 			if (!addToAdjacentInventory(stack)) {
 				dropStack(stack);
 			}
 		}
 		drops.clear();
+	}
+	
+	private AxisAlignedBB getAABBForExtension() {
+		return new AxisAlignedBB(getPos().west().down(2).north(), new BlockPos(getPos().getX() + 2, 0, getPos().getZ() + 2));
+	}
+	
+	private void destroyXp() {
+		AxisAlignedBB bb = getAABBForExtension();
+		List<EntityXPOrb> ents = getWorld().getEntitiesWithinAABB(EntityXPOrb.class, bb);
+		for (EntityXPOrb ent : ents) {
+			getWorld().removeEntity(ent);
+		}
 	}
 	
 	private boolean receivingRedstoneSignal() {
@@ -261,6 +315,9 @@ public class TileEntityMiningWell extends TileEntity implements ITickable, IEner
 	}
 	
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		if (facing.equals(EnumFacing.DOWN)) {
+			return false;
+		}
 		if (capability == CapabilityEnergy.ENERGY) {
 			return true;
 		}
@@ -268,6 +325,9 @@ public class TileEntityMiningWell extends TileEntity implements ITickable, IEner
 	}
 	
 	public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+		if (!hasCapability(capability, facing)) {
+			return null;
+		}
 		if (capability.equals(CapabilityEnergy.ENERGY)) {
 			return (T) this;
 		}

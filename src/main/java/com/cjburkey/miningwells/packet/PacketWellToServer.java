@@ -58,7 +58,7 @@ public class PacketWellToServer implements IMessage  {
 				IBlockState s = w.getBlockState(p);
 				if (s.getBlock() instanceof BlockMiningWell) {
 					TileEntityMiningWell well = (TileEntityMiningWell) w.getTileEntity(p);
-					return new PacketWellToClient(well.getEnergyStored(), well.getMaxEnergyStored(), well.isWorking());
+					return new PacketWellToClient(well.getEnergyStored(), well.getMaxEnergyStored(), well.isWorking(), well.getBlocksPerOperation(), well.getFortune(), well.getSilkTouch());
 				}
 			}
 			return null;

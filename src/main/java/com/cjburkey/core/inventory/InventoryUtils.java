@@ -25,12 +25,15 @@ public class InventoryUtils {
 		if (openSlot < 0) {
 			return false;
 		}
-		if (stack.isItemDamaged() || stack.getMaxStackSize() == 1) {
+		if (inv.isItemValidForSlot(openSlot, stack) && (stack.isItemDamaged() || stack.getMaxStackSize() == 1)) {
 			inv.setInventorySlotContents(openSlot, stack.copy());
 			stack.setCount(0);
 			return true;
 		}
 		for (int i = 0; i < inv.getSizeInventory(); i ++) {
+			if (!inv.isItemValidForSlot(i, stack)) {
+				continue;
+			}
 			ItemStack inSlot = inv.getStackInSlot(i);
 			if (inSlot.isEmpty()) {
 				inv.setInventorySlotContents(i, stack.copy());

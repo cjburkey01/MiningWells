@@ -1,9 +1,10 @@
 package com.cjburkey.miningwells.tile;
 
-import com.cjburkey.miningwells.LogUtils;
+import com.cjburkey.miningwells.item.upgrade.EnumUpgradeType;
 import com.cjburkey.miningwells.item.upgrade.ItemUpgrade;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -16,6 +17,25 @@ public class TileEntityUpgradeStation extends TileEntity implements IInventory {
 	
 	private final int size = 3;
 	private final NonNullList<ItemStack> inv = NonNullList.<ItemStack>withSize(size, ItemStack.EMPTY);
+	
+	public int getUpgradeLevel(EnumUpgradeType type) {
+		for (int i = 0; i < size; i ++) {
+			ItemStack stack = getStackInSlot(i);
+			if (stack.isEmpty()) {
+				continue;
+			}
+			Item item = stack.getItem();
+			if (!(item instanceof ItemUpgrade)) {
+				continue;
+			}
+			ItemUpgrade upgrade = (ItemUpgrade) item;
+			if (!upgrade.getUpgradeType().equals(type)) {
+				continue;
+			}
+			return upgrade.getUpgradeLevel();
+		}
+		return 0;
+	}
 	
 	public String getName() {
 		return "tile.block_upgrade_station.name";
@@ -92,7 +112,20 @@ public class TileEntityUpgradeStation extends TileEntity implements IInventory {
 	}
 	
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		return stack.getItem() instanceof ItemUpgrade;
+		if (!(stack.getItem() instanceof ItemUpgrade)) {
+			return false;
+		}
+		ItemUpgrade upgrade = (ItemUpgrade) stack.getItem();
+		if (index == 0 && upgrade.getUpgradeType().equals(EnumUpgradeType.BLOCKS_PER_OPERATION)) {
+			return true;
+		}
+		if (index == 1 && upgrade.getUpgradeType().equals(EnumUpgradeType.FORTUNE)) {
+			return true;
+		}
+		if (index == 2 && upgrade.getUpgradeType().equals(EnumUpgradeType.SILK_TOUCH)) {
+			return true;
+		}
+		return false;
 	}
 	
 	public int getField(int id) {

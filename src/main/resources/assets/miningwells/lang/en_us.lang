@@ -26,3 +26,11 @@ upgrade.bpo=Increases the blocks broken per mining operation.
 upgrade.fortune=Increase the fortune level
 upgrade.silk=Pick up them fragil blocks
 upgrade.level_info=Level
+
+well.bpo=Blocks per Operation
+well.fortune=Fortune
+well.silk=Silk Touch
+well.none=None
+well.ignored=Ignored
+well.yes=Yes
+well.no=No

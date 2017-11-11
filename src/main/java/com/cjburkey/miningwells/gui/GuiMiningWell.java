@@ -2,21 +2,19 @@ package com.cjburkey.miningwells.gui;
 
 import java.awt.Rectangle;
 import java.util.List;
-import java.util.Locale;
 import com.cjburkey.core.gui.NumFormatHelper;
 import com.cjburkey.core.gui.tooltip.GuiToolTip;
 import com.cjburkey.core.gui.tooltip.ToolTipManager;
 import com.cjburkey.core.gui.tooltip.ToolTipManager.ToolTipRenderer;
-import com.cjburkey.miningwells.LogUtils;
 import com.cjburkey.miningwells.ModInfo;
 import com.cjburkey.miningwells.container.ContainerMiningWell;
 import com.cjburkey.miningwells.packet.ModPackets;
 import com.cjburkey.miningwells.packet.PacketWellToServer;
 import com.cjburkey.miningwells.tile.TileEntityMiningWell;
-import com.ibm.icu.text.NumberFormat;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -26,11 +24,14 @@ public class GuiMiningWell extends GuiContainer implements ToolTipRenderer {
 	public static int energy;
 	public static int maxEnergy;
 	public static boolean working;
+	public static int bpo;
+	public static int fortune;
+	public static boolean silk;
 	
-	public static final int progX = 80;
-	public static final int progY = 22;
-	public static final int progW = 16;
-	public static final int progH = 41;
+	public static final int progX = 25;
+	public static final int progY = 21;
+	public static final int progW = 17;
+	public static final int progH = 42;
 	
 	private ToolTipManager ttm = new ToolTipManager();
 	
@@ -66,6 +67,9 @@ public class GuiMiningWell extends GuiContainer implements ToolTipRenderer {
 		String s = te.getDisplayName().getUnformattedText();
 		getFontRenderer().drawString(s, 88 - getFontRenderer().getStringWidth(s) / 2, 6, 0xBFBFBF);
 		getFontRenderer().drawString(plyInv.getDisplayName().getUnformattedText(), 8, 72, 0xBFBFBF);
+		getFontRenderer().drawString(I18n.format("well.bpo") + ": " + bpo, 46, 21, 0xBFBFBF);
+		getFontRenderer().drawString(I18n.format("well.fortune") + ": " + ((fortune > 0) ? fortune : I18n.format("well.none")) + ((silk && fortune > 0) ? " (" + I18n.format("well.ignored") + ")" : ""), 46, 34, 0xBFBFBF);
+		getFontRenderer().drawString(I18n.format("well.silk") + ": " + ((silk) ? I18n.format("well.yes") : I18n.format("well.no")), 46, 47, 0xBFBFBF);
 		drawEnergyBar();
 	}
 	
