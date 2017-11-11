@@ -1,0 +1,32 @@
+{
+    "result": {
+        "item": "miningwells:block_upgrade_station"
+    },
+    "pattern": [
+        "xrx",
+        "dtd",
+        "iri"
+    ],
+    "type": "forge:ore_shaped",
+    "key": {
+        "x": {
+            "type": "forge:ore_dict",
+            "ore": "gearIron"
+        },
+        "r": {
+            "type": "forge:ore_dict",
+            "ore": "dustRedstone"
+        },
+        "d": {
+            "type": "forge:ore_dict",
+            "ore": "gemDiamond"
+        },
+        "t": {
+            "item": "minecraft:redstone_torch"
+        },
+        "i": {
+            "type": "forge:ore_dict",
+            "ore": "ingotIron"
+        }
+    }
+}

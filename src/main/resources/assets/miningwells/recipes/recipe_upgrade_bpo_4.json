@@ -1,0 +1,24 @@
+{
+    "result": {
+        "item": "miningwells:item_upgrade_bpo_4"
+    },
+    "pattern": [
+        "xrx",
+        "ror",
+        "xrx"
+    ],
+    "type": "forge:ore_shaped",
+    "key": {
+        "x": {
+            "type": "forge:ore_dict",
+            "ore": "gemEmerald"
+        },
+        "r": {
+            "type": "forge:ore_dict",
+            "ore": "dustRedstone"
+        },
+        "o": {
+            "item": "miningwells:item_upgrade_bpo_3"
+        }
+    }
+}

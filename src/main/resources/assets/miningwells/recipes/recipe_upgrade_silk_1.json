@@ -1,0 +1,25 @@
+{
+    "result": {
+        "item": "miningwells:item_upgrade_silk_1"
+    },
+    "pattern": [
+        "rgr",
+        "dgd",
+        "rgr"
+    ],
+    "type": "forge:ore_shaped",
+    "key": {
+        "g": {
+            "type": "forge:ore_dict",
+            "ore": "gearGold"
+        },
+        "r": {
+            "type": "forge:ore_dict",
+            "ore": "oreRedstone"
+        },
+        "d": {
+            "type": "forge:ore_dict",
+            "ore": "oreDiamond"
+        }
+    }
+}

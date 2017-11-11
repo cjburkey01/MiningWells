@@ -1,0 +1,25 @@
+{
+    "result": {
+        "item": "miningwells:item_upgrade_bpo_1"
+    },
+    "pattern": [
+        "xrx",
+        "rgr",
+        "xrx"
+    ],
+    "type": "forge:ore_shaped",
+    "key": {
+        "x": {
+            "type": "forge:ore_dict",
+            "ore": "gearIron"
+        },
+        "r": {
+            "type": "forge:ore_dict",
+            "ore": "dustRedstone"
+        },
+        "g": {
+            "type": "forge:ore_dict",
+            "ore": "dustGlowstone"
+        }
+    }
+}

@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "miningwells:items/item_upgrade_bpo"
+        "layer0": "miningwells:items/item_upgrade_bpo_2"
     }
 }

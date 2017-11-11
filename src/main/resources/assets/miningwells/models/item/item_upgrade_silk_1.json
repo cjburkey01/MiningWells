@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "miningwells:items/item_upgrade_silk"
+        "layer0": "miningwells:items/item_upgrade_silk_1"
     }
 }

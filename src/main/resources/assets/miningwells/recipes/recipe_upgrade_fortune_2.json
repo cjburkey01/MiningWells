@@ -1,0 +1,24 @@
+{
+    "result": {
+        "item": "miningwells:item_upgrade_fortune_2"
+    },
+    "pattern": [
+        "ror",
+        "ogo",
+        "ror"
+    ],
+    "type": "forge:ore_shaped",
+    "key": {
+        "g": {
+            "item": "miningwells:item_upgrade_fortune_1"
+        },
+        "r": {
+            "type": "forge:ore_dict",
+            "ore": "dustRedstone"
+        },
+        "o": {
+            "type": "forge:ore_dict",
+            "ore": "blockLapis"
+        }
+    }
+}
