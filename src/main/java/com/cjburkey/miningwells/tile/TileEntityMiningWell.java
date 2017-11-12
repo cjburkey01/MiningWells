@@ -315,6 +315,9 @@ public class TileEntityMiningWell extends TileEntity implements ITickable, IEner
 	}
 	
 	public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+		if (facing == null || capability == null) {
+			return false;
+		}
 		if (facing.equals(EnumFacing.DOWN)) {
 			return false;
 		}
