@@ -12,7 +12,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(name = ModInfo.NAME, modid = ModInfo.MODID, version = ModInfo.VERSION, useMetadata = false, clientSideOnly = false, serverSideOnly = false, acceptedMinecraftVersions = ModInfo.MC_VERSIONS, modLanguage = "java", canBeDeactivated = false)
+@Mod(name = ModInfo.NAME, modid = ModInfo.MODID, version = ModInfo.VERSION, useMetadata = false, clientSideOnly = false, serverSideOnly = false,
+	acceptedMinecraftVersions = ModInfo.MC_VERSIONS, modLanguage = "java", canBeDeactivated = false, dependencies = "required-after:burcore@[1.0.3,]")
 public class MiningWells {
 	
 	public static final Logger LOG = LogManager.getLogger(ModInfo.MODID);

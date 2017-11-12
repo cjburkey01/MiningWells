@@ -14,8 +14,6 @@ public class ClientProxy extends CommonProxy {
 	
 	public void preinit(FMLPreInitializationEvent e) {
 		super.preinit(e);
-		
-		NumFormatHelper.commonPreinit();
 	}
 	
 	public void init(FMLInitializationEvent e) {

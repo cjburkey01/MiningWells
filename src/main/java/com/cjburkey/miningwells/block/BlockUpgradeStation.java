@@ -21,7 +21,6 @@ public class BlockUpgradeStation extends BlockBase implements ITileEntityProvide
 	public BlockUpgradeStation() {
 		super(Material.IRON, "block_upgrade_station");
 	}
-	
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing dir, float x, float y, float z) {
 		if (!world.isRemote) {
 			ItemStack stack = player.getHeldItem(hand);
