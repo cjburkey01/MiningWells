@@ -5,4 +5,4 @@ Downloads and more info found on Curseforge: https://minecraft.curseforge.com/pr
 
 Note: Requires BurCore: https://github.com/cjburkey01/BurCore
 
-Version 1.0.0+ Require BurCore **1.0.3**
+Versions 1.0.0+ Require BurCore **1.0.3**
