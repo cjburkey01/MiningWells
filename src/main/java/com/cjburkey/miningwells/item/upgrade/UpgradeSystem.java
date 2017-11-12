@@ -1,13 +1,12 @@
 package com.cjburkey.miningwells.item.upgrade;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import com.cjburkey.miningwells.tile.TileEntityUpgradeStation;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import scala.actors.threadpool.Arrays;
 
 public class UpgradeSystem {
 	
